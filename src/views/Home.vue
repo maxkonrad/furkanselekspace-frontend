@@ -44,9 +44,6 @@ export default {
           this.errors.push(error);
         });
     },
-    getData(value) {
-      console.log(value);
-    },
   },
 };
 </script>
