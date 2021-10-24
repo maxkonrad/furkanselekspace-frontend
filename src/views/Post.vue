@@ -42,7 +42,10 @@ export default {
   methods: {
     getPosts() {
       axios
-        .get("https://furkanselekspace-backend.herokuapp.com/posts/" + this.$route.params.id)
+        .get(
+          "https://furkanselekspace-backend.herokuapp.com/posts/" +
+            this.$route.params.id
+        )
         .then((response) => (this.post = response.data))
         .catch((error) => {
           this.errors.push(error);
