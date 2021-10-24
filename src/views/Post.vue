@@ -1,59 +1,62 @@
 <template>
   <div class="app">
-      <article class="post">
-  <div>
-    <div class="absolute-bg" :style="{ backgroundImage: 'url(' + post.imgSrc + ')' }"></div>
-  </div>
-  <div class="post__container">
-    <span class="post__category">Furkan Selek</span>
-    
-    <div class="post__content">
-      <header>
-        <time class="post__time">{{post.updated_date}}</time>
-        <h1 class="post__header">{{post.title}}</h1>
-      </header>
-    
-      <p class="post__text">{{post.content}}</p>
-    </div>
-    <div class="post__link">
-      <a href="#">:)</a>
-    </div>
-  </div>
-</article>
+    <article class="post">
+      <div>
+        <div
+          class="absolute-bg"
+          :style="{ backgroundImage: 'url(' + post.imgSrc + ')' }"
+        ></div>
+      </div>
+      <div class="post__container">
+        <span class="post__category">Furkan Selek</span>
 
+        <div class="post__content">
+          <header>
+            <time class="post__time">{{ post.updated_date }}</time>
+            <h1 class="post__header">{{ post.title }}</h1>
+          </header>
+
+          <p class="post__text">{{ post.content }}</p>
+        </div>
+        <div class="post__link">
+          <a href="#">:)</a>
+        </div>
+      </div>
+    </article>
   </div>
 </template>
 
 <script>
-import axios from 'axios'
+import axios from "axios";
 
 export default {
-    name: "Post",
-    created(){
-        this.getPosts()
+  name: "Post",
+  created() {
+    this.getPosts();
+  },
+  data() {
+    return {
+      post: "",
+    };
+  },
+  methods: {
+    getPosts() {
+      axios
+        .get("http://localhost:5000/posts/" + this.$route.params.id)
+        .then((response) => (this.post = response.data))
+        .catch((error) => {
+          this.errors.push(error);
+        });
     },
-    data() {
-        return {
-        post: ''
-        }
-    },
-    methods: {
-        getPosts(){
-        axios.get('http://localhost:5000/posts/' + this.$route.params.id)
-        .then(response => (this.post = response.data))
-        .catch(error => {
-                this.errors.push(error);
-            })
-        }
-    }
-}
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 /**
  * Base Variables
  */
-$font: 'Source Sans Pro', sans-serif;
+$font: "Source Sans Pro", sans-serif;
 
 $color-alpha: #d0f2ee;
 
@@ -73,9 +76,8 @@ $mq-xxl: 114em;
  */
 @mixin nth-animation-delay($items: 3, $time: 0.1s) {
   @for $i from 1 through $items {
-    
-    &:nth-child(#{$i}) {   
-      animation-delay: $time * $i; 
+    &:nth-child(#{$i}) {
+      animation-delay: $time * $i;
     }
   }
 }
@@ -83,14 +85,16 @@ $mq-xxl: 114em;
 /**
  * Base Settings/Overwrite Normalize
  */
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: border-box;
 }
 
 h1 {
   margin-top: 0;
   margin-bottom: 0.25em;
-  
+
   font-size: 4em;
   font-weight: 900;
   line-height: 0.9;
@@ -112,7 +116,7 @@ a {
   letter-spacing: 0.3em;
   border: 1px solid $color-grey;
   transition: all 0.3s ease-in;
-  
+
   &:hover,
   &:active,
   &:focus {
@@ -175,60 +179,59 @@ body {
 .post {
   min-height: 100vh;
   width: 100%;
-  
+
   border: 0.5em solid $color-white;
-  
+
   @media (min-width: $mq-md) {
     display: flex;
     height: 100vh;
     min-height: 40em;
   }
-  
+
   & > *:first-child {
     position: relative;
-    
+
     height: 14em;
-    
+
     background-color: $color-black;
-    
+
     @media (min-width: $mq-sm) {
       height: 18em;
     }
-    
+
     @media (min-width: $mq-md) {
       flex-basis: 50%;
       max-width: 50%;
       height: auto;
     }
-    
+
     @media (min-width: $mq-xl) {
       flex-basis: 60%;
       max-width: 60%;
     }
   }
-  
+
   & > *:last-child {
-    
     @media (min-width: $mq-md) {
       flex-basis: 50%;
-      max-width: 50%; 
+      max-width: 50%;
     }
-    
+
     @media (min-width: $mq-xl) {
       flex-basis: 40%;
       max-width: 40%;
     }
   }
-  
+
   &__container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     padding: 2em;
-    
+
     overflow-y: auto;
   }
-  
+
   &__category {
     position: relative;
     font-weight: 600;
@@ -236,13 +239,13 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.3em;
     overflow: hidden;
-    
+
     &:before {
       content: "";
       position: absolute;
       left: 0;
       bottom: 0;
-      
+
       height: 2px;
       width: 3em;
 
@@ -250,28 +253,28 @@ body {
       animation: slide-in 1s ease-in both 0.5s;
     }
   }
-  
+
   &__content {
     padding: 2em 0;
-    
+
     @media (min-width: $mq-md) {
-      padding: 0 4em; 
+      padding: 0 4em;
     }
   }
-  
+
   &__time {
     display: inline-block;
     margin-bottom: 0.5em;
-    
+
     font-weight: 600;
     font-size: 0.8em;
     text-transform: uppercase;
     letter-spacing: 0.1em;
   }
-  
+
   &__header {
     overflow: hidden;
-    
+
     span {
       @include nth-animation-delay();
 
@@ -280,12 +283,12 @@ body {
       animation: slide-up 0.8s ease-in-out both;
     }
   }
-  
+
   &__text {
     font-weight: 300;
     animation: fade-in 0.8s ease-in-out both 0.5s;
   }
-  
+
   &__link {
     text-align: right;
   }
@@ -313,18 +316,33 @@ body {
  * Animations
  */
 @keyframes slide-in {
-  0% { transform: translate3d(-100%, 0, 0); }
-  100% { transform: translate3d(0, 0, 0); }
+  0% {
+    transform: translate3d(-100%, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @keyframes slide-up {
-  0% { opacity: 0; transform: translate3d(0, 100%, 0); }
-  90% { opacity: 1; }
-  100% { transform: translate3d(0, 0, 0); }
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 100%, 0);
+  }
+  90% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
 }
 
 @keyframes fade-in {
-  0% { opacity: 0; }
-  100% { opacity: 1; }
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
 }
 </style>

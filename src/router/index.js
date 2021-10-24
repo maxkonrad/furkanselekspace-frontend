@@ -1,10 +1,10 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-import About from "../views/About.vue"
-import Posts from "../views/Posts.vue"
-import Seymen from "../views/Seymen.vue"
-import admin from "../views/Admin.vue"
-import Post from "../views/Post.vue"
+import About from "../views/About.vue";
+import Posts from "../views/Posts.vue";
+import Seymen from "../views/Seymen.vue";
+import admin from "../views/Admin.vue";
+import Post from "../views/Post.vue";
 
 const routes = [
   {
@@ -13,7 +13,7 @@ const routes = [
     component: Home,
   },
   {
-    path:"/posts/:id",
+    path: "/posts/:id",
     name: "Post",
     component: Post,
   },
@@ -36,7 +36,7 @@ const routes = [
     path: "/admin",
     name: "admin",
     component: admin,
-  }
+  },
   // {
   //   path: "/about",
   //   name: "About",
