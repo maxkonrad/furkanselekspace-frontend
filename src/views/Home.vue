@@ -38,7 +38,7 @@ export default {
   methods: {
     getPosts() {
       axios
-        .get("http://localhost:5000/posts/homepage")
+        .get("https://furkanselekspace-backend.herokuapp.com/posts/homepage")
         .then((response) => (this.posts = response.data))
         .catch((error) => {
           this.errors.push(error);

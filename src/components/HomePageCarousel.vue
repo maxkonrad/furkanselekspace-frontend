@@ -33,7 +33,7 @@ export default {
   methods: {
     getBanners() {
       axios
-        .get("http://localhost:5000/banners")
+        .get("https://furkanselekspace-backend.herokuapp.com/banners")
         .then((response) => (this.banners = response.data))
         .catch((error) => {
           this.errors.push(error);
